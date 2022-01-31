@@ -51,3 +51,14 @@ void MainWindow::setPosition(qint64 position)
     ui->prB_time->setValue(pos);
 
 }
+
+void MainWindow::on_pB_min5sec_clicked()
+{
+    player->setPosition(player->position()-5000);
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    player->setPosition(player->position()+5000);
+
+}

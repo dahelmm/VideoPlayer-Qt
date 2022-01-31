@@ -26,6 +26,10 @@ private slots:
     void on_pB_pause_clicked();
     void setPosition(qint64);
 
+    void on_pB_min5sec_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QMediaPlayer *player;
