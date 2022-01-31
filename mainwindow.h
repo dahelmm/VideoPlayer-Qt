@@ -28,7 +28,12 @@ private slots:
 
     void on_pB_min5sec_clicked();
 
-    void on_pushButton_2_clicked();
+
+    void on_hS_volume_sliderMoved(int position);
+
+    void on_pB_plus5sec_clicked();
+
+    void on_hS_position_sliderMoved(int position);
 
 private:
     Ui::MainWindow *ui;
