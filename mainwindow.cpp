@@ -26,7 +26,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_action_triggered()
 {
-    player->setMedia(QUrl(QFileDialog::getOpenFileName(this,"Выберите видео","","(*.mp4)")));
+    player->setMedia(QUrl(QFileDialog::getOpenFileName(this,"Выберите видео","")));
     player->setVolume(50);
 
 }
@@ -34,11 +34,8 @@ void MainWindow::on_action_triggered()
 void MainWindow::on_pB_play_clicked()
 {
     int pos = player->duration()/1000;
-
     int min = pos/60;
     int sec= pos-(min*60);
-    qDebug()<<pos<<" "<<min<<" "<<sec;
-
     QString str = "0"+QString::number(min)+":"+QString::number(sec);
     ui->l_fullTime->setText(str);
     player->play();
@@ -85,4 +82,13 @@ void MainWindow::on_pB_plus5sec_clicked()
 void MainWindow::on_hS_position_sliderMoved(int position)
 {
     player->setPosition(position*1000);
+}
+
+void MainWindow::on_action_fullScreen_triggered()
+{
+    videoWidget->setFullScreen(true);
+    if(Qt::Key_Escape==true)
+    {
+        videoWidget->setFullScreen(false);
+    }
 }

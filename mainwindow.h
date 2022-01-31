@@ -35,6 +35,8 @@ private slots:
 
     void on_hS_position_sliderMoved(int position);
 
+    void on_action_fullScreen_triggered();
+
 private:
     Ui::MainWindow *ui;
     QMediaPlayer *player;
