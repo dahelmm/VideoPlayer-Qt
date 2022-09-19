@@ -9,10 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     player = new QMediaPlayer(this);
-    videoWidget = new QVideoWidget;
+    videoWidget = new CustomVideoWidget;
     player->setVideoOutput(videoWidget);
-    videoWidget->setGeometry(50,50,800,600);
-    videoWidget->show();
+    ui->gridLayout_2->addWidget(videoWidget);
+    videoWidget->resize(ui->widget->width(),ui->widget->height());
     ui->l_volume->setText(QString::number(ui->hS_volume->value()));
 
     connect(player,SIGNAL(positionChanged(qint64)),this,SLOT(setPosition(qint64)));
@@ -23,29 +23,31 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::on_action_triggered()
 {
     player->setMedia(QUrl(QFileDialog::getOpenFileName(this,"Выберите видео","")));
     player->setVolume(50);
 
+
+
 }
 
 void MainWindow::on_pB_play_clicked()
 {
-    int pos = player->duration()/1000;
-    int min = pos/60;
-    int sec= pos-(min*60);
-    QString str = "0"+QString::number(min)+":"+QString::number(sec);
-    ui->l_fullTime->setText(str);
-    player->play();
+  int pos = player->duration()/1000;
+  int min = pos/60;
+  int sec= pos-(min*60);
+  QString str = "0"+QString::number(min)+":"+QString::number(sec);
+  ui->l_fullTime->setText(str);
+  player->play();
+//  if(player->state() == QMediaPlayer::State::PausedState)
+//    player->play();
 
 }
 
 void MainWindow::on_pB_pause_clicked()
 {
     player->pause();
-
 }
 
 void MainWindow::setPosition(qint64 position)
@@ -57,15 +59,12 @@ void MainWindow::setPosition(qint64 position)
     ui->l_currentTime->setText(str);
     ui->hS_position->setMaximum(player->duration()/1000);
     ui->hS_position->setValue(pos);
-
 }
 
 void MainWindow::on_pB_min5sec_clicked()
 {
     player->setPosition(player->position()-5000);
 }
-
-
 
 void MainWindow::on_hS_volume_sliderMoved(int position)
 {
@@ -76,7 +75,6 @@ void MainWindow::on_hS_volume_sliderMoved(int position)
 void MainWindow::on_pB_plus5sec_clicked()
 {
     player->setPosition(player->position()+5000);
-
 }
 
 void MainWindow::on_hS_position_sliderMoved(int position)
@@ -86,9 +84,7 @@ void MainWindow::on_hS_position_sliderMoved(int position)
 
 void MainWindow::on_action_fullScreen_triggered()
 {
-    videoWidget->setFullScreen(true);
-    if(Qt::Key_Escape==true)
-    {
-        videoWidget->setFullScreen(false);
-    }
+  videoWidget->setFullScreen(true);
 }
+
+
